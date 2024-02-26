@@ -1,0 +1,65 @@
+resource "cloudstack_port_forward" "web_net_1" {
+  count           = var.web_net_1.count
+  ip_address_id = cloudstack_ipaddress.pub-ip.id
+
+  forward {
+    protocol           = "tcp"
+    private_port       = 22
+    public_port        = 2220 + count.index
+    virtual_machine_id = cloudstack_instance.web_net_1[count.index].id
+  }
+}
+
+resource "cloudstack_ipaddress" "pub-ip" {
+  zone       = var.availability_zone
+  vpc_id     = cloudstack_vpc.ace-vpc.id
+}
+
+resource "cloudstack_network_acl_rule" "default" {
+  acl_id = cloudstack_network_acl.default.id
+
+  rule {
+    action       = "allow"
+    cidr_list    = ["0.0.0.0/0"]
+    protocol     = "tcp"
+    ports        = ["22"]
+    traffic_type = "ingress"
+  }
+
+  rule {
+    action       = "allow"
+    cidr_list    = ["10.0.0.0/16"]
+    protocol     = "tcp"
+    ports        = ["22"]
+    traffic_type = "ingress"
+  }
+}
+resource "cloudstack_vpc" "ace-vpc" {
+  name         = "ace-vpc"
+  cidr         = "10.0.0.0/16"
+  vpc_offering = var.vpc_offering
+  zone         = var.availability_zone
+}
+
+resource "cloudstack_network_acl" "default" {
+  name = "default-acl"
+  vpc_id  = cloudstack_vpc.ace-vpc.id
+}
+
+resource "cloudstack_network" "ace-network-1" {
+  name               = "ace-network-1"
+  network_offering   = var.vpc_network_offering
+  cidr               = "10.0.1.0/24"
+  zone               = var.availability_zone
+  vpc_id             = cloudstack_vpc.ace-vpc.id
+  acl_id             = cloudstack_network_acl.default.id
+}
+
+resource "cloudstack_network" "ace-network-2" {
+  name               = "ace-network-2"
+  network_offering   = var.vpc_network_offering
+  cidr               = "10.0.2.0/24"
+  zone               = var.availability_zone
+  vpc_id             = cloudstack_vpc.ace-vpc.id
+  acl_id             = cloudstack_network_acl.default.id
+}

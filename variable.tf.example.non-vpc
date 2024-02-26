@@ -1,0 +1,34 @@
+variable "prefix" {
+  type = string
+}
+
+variable "availability_zone" {
+  type = string
+}
+
+variable "keypair" {
+  type = string
+}
+
+variable "environment" {
+  description = "Environmetn name (ie. Staging, Prod...etc)"
+  type        = string
+}
+
+variable "firewall_web_net_1_ports" {
+  description = "List of ports for web server"
+  type        = list(object({}))
+  default     = []
+}
+
+variable "web_net_1" {
+  description = "Web Servers"
+  type        = object({
+    count            = number
+    role             = string
+    root_disk_size   = number
+    service_offering = string
+    template         = string
+  })
+}
+

@@ -1,0 +1,12 @@
+availability_zone    = "zone0"
+prefix               = "ACE-Test"
+environment          = "staging"
+keypair              = "<keypair name here>" # Key pair created in UI. Provide name here.
+
+web_net_1 = {
+  count            = 1
+  role             = "net-1-web"
+  root_disk_size   = 20
+  service_offering = "ACE 2 vCPU 4GB Ram - z0"
+  template         = "AC-OS-ubuntu-22.04-2023-11-15T15-39-13Z"
+}

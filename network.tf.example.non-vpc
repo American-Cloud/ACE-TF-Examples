@@ -1,0 +1,42 @@
+resource "cloudstack_egress_firewall" "default_egress" {
+  network_id = cloudstack_network.ace-network-1.id
+
+  rule {
+    cidr_list = ["0.0.0.0/0"]
+    protocol  = "all"
+  }
+}
+
+resource "cloudstack_firewall" "firewall-web" {
+  ip_address_id = cloudstack_ipaddress.pub-ip.id
+
+  rule {
+    cidr_list = ["0.0.0.0/0"]
+    protocol  = "tcp"
+    ports     = local.firewall_web_net_1_ports
+  }
+}
+
+resource "cloudstack_port_forward" "web_net_1" {
+  count           = var.web_net_1.count
+  ip_address_id = cloudstack_ipaddress.pub-ip.id
+
+  forward {
+    protocol           = "tcp"
+    private_port       = 22
+    public_port        = 2220 + count.index
+    virtual_machine_id = cloudstack_instance.web_net_1[count.index].id
+  }
+}
+
+resource "cloudstack_ipaddress" "pub-ip" {
+  zone       = var.availability_zone
+  network_id = cloudstack_network.ace-network-1.id
+}
+
+resource "cloudstack_network" "ace-network-1" {
+  name               = "ace-network-1"
+  network_offering = "DefaultIsolatedNetworkOfferingWithSourceNatService"
+  cidr               = "10.0.1.0/24"
+  zone               = var.availability_zone
+}

@@ -1,0 +1,50 @@
+variable "prefix" {
+  type = string
+}
+
+variable "availability_zone" {
+  type = string
+}
+
+variable "keypair" {
+  type = string
+}
+
+variable "environment" {
+  description = "Environmetn name (ie. TDS, Prod, Infra)"
+  type        = string
+}
+
+variable "vpc_offering" {
+  description = "VPC Offering"
+  type        = string
+  default     = "Default VPC offering"
+}
+
+variable "vpc_network_offering" {
+  description = "VPC Network Offering"
+  type        = string
+  default     = "DefaultIsolatedNetworkOfferingForVpcNetworks"
+}
+
+variable "web_net_1" {
+  description = "Web Servers"
+  type        = object({
+    count            = number
+    role             = string
+    root_disk_size   = number
+    service_offering = string
+    template         = string
+  })
+}
+
+variable "web_net_2" {
+  description = "Web Servers"
+  type        = object({
+    count            = number
+    role             = string
+    root_disk_size   = number
+    service_offering = string
+    template         = string
+  })
+}

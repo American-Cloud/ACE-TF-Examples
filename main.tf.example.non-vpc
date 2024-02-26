@@ -1,0 +1,16 @@
+resource "cloudstack_instance" "web_net_1" {
+  count            = var.web_net_1.count
+  name             = "${var.prefix}-${var.web_net_1.role}-${count.index}"
+  display_name     = "${var.prefix}-${var.web_net_1.role}-${count.index}"
+  service_offering = var.web_net_1.service_offering
+  template         = var.web_net_1.template
+  root_disk_size   = var.web_net_1.root_disk_size
+  network_id       = cloudstack_network.ace-network-1.id
+  zone             = var.availability_zone
+  keypair          = var.keypair
+  expunge          = "true"
+  tags             = {
+    role           = var.web_net_1.role
+    environment    = var.environment
+  }
+}

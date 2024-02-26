@@ -1,0 +1,43 @@
+resource "cloudstack_instance" "web_net_1" {
+  count            = var.web_net_1.count
+  name             = "${var.prefix}-${var.web_net_1.role}-${count.index}"
+  display_name     = "${var.prefix}-${var.web_net_1.role}-${count.index}"
+  service_offering = var.web_net_1.service_offering
+  template         = var.web_net_1.template
+  root_disk_size   = var.web_net_1.root_disk_size
+  network_id       = cloudstack_network.ace-network-1.id
+  zone             = var.availability_zone
+  keypair          = var.keypair
+  expunge          = "true"
+  # user_data      = file("node.sh")
+  tags             = {
+    role           = var.web_net_1.role
+    environment    = var.environment
+  }
+  depends_on = [
+    cloudstack_vpc.ace-vpc,
+    cloudstack_network.ace-network-1,
+  ]
+}
+
+resource "cloudstack_instance" "web_net_2" {
+  count            = var.web_net_2.count
+  name             = "${var.prefix}-${var.web_net_2.role}-${count.index}"
+  display_name     = "${var.prefix}-${var.web_net_2.role}-${count.index}"
+  service_offering = var.web_net_2.service_offering
+  template         = var.web_net_2.template
+  root_disk_size   = var.web_net_2.root_disk_size
+  network_id       = cloudstack_network.ace-network-2.id
+  zone             = var.availability_zone
+  keypair          = var.keypair
+  expunge          = "true"
+  # user_data      = file("node.sh")
+  tags             = {
+    role           = var.web_net_2.role
+    environment    = var.environment
+  }
+  depends_on = [
+    cloudstack_vpc.ace-vpc,
+    cloudstack_network.ace-network-2,
+  ]
+}

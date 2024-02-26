@@ -1,0 +1,10 @@
+locals {
+
+  # This will create a list of ports for use with port forwarding.  Each "i" is the index of the number
+  # of servers that are defined in .tfvars.
+  #
+  # If the could was 3 in tfvars file, then firewall_web_net_X_ports == [2220, 2221, 2222]
+
+  firewall_web_net_1_ports = [for i in range(var.web_net_1.count): tostring(2220 + i)]
+
+}
