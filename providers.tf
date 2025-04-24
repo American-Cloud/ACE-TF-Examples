@@ -1,8 +1,8 @@
 terraform {
   required_providers {
     cloudstack = {
-      source   = "american-cloud/cloudstack"
-      version  = ">= 0.4.1"
+      source   = "cloudstack/cloudstack"
+      version  = "0.5.0"
     }
   }
 }
