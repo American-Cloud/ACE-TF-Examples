@@ -7,6 +7,10 @@ web_net_1 = {
   count            = 1
   role             = "net-1-web"
   root_disk_size   = 20
-  service_offering = "ACE 2 vCPU 4GB Ram - z0"
-  template         = "AC-OS-ubuntu-22.04-2023-11-15T15-39-13Z"
+  service_offering = "ACE-1C32-1R64-S"  # (C = CPU, R = RAM, P = Premium, S = Standard)
+  template         = "AC-OS-ubuntu-24.04-2024-04-26T13-33-49Z"
+  details = {
+    cpuNumber = 2
+    memory    = 4096
+  }
 }

@@ -18,6 +18,7 @@ resource "cloudstack_instance" "web_net_1" {
     cloudstack_vpc.ace-vpc,
     cloudstack_network.ace-network-1,
   ]
+  details = var.web_net_1.details
 }
 
 resource "cloudstack_instance" "web_net_2" {
@@ -40,4 +41,5 @@ resource "cloudstack_instance" "web_net_2" {
     cloudstack_vpc.ace-vpc,
     cloudstack_network.ace-network-2,
   ]
+  details = var.web_net_2.details
 }
