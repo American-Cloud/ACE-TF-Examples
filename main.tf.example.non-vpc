@@ -13,4 +13,5 @@ resource "cloudstack_instance" "web_net_1" {
     role           = var.web_net_1.role
     environment    = var.environment
   }
+  details = var.web_net_1.details
 }

@@ -7,7 +7,7 @@ web_net_1 = {
   count            = 1
   role             = "net-1-web"
   root_disk_size   = 20
-  service_offering = "ACE-1C32-1R64-S"  # (C = CPU, R = RAM, P = Premium, S = Standard)
+  service_offering = "Intel-Local-US-West"  # See README.md for list of service offerings
   template         = "AC-OS-ubuntu-24.04-2024-04-26T13-33-49Z"
   details = {
     cpuNumber = 2
@@ -19,7 +19,7 @@ web_net_2 = {
   count            = 1
   role             = "net-2-web"
   root_disk_size   = 20
-  service_offering = "ACE-1C32-1R64-S"  # (C = CPU, R = RAM, P = Premium, S = Standard)
+  service_offering = "Intel-Local-US-West"  # See README.md for list of service offerings
   template         = "AC-OS-ubuntu-24.04-2024-04-26T13-33-49Z"
   details = {
     cpuNumber = 2

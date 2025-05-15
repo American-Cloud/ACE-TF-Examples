@@ -35,6 +35,10 @@ variable "web_net_1" {
     root_disk_size   = number
     service_offering = string
     template         = string
+    details          = object({
+      cpuNumber = number
+      memory    = number
+    })
   })
 }
 
@@ -46,5 +50,9 @@ variable "web_net_2" {
     root_disk_size   = number
     service_offering = string
     template         = string
+    details          = object({
+      cpuNumber = number
+      memory    = number
+    })
   })
 }

@@ -14,19 +14,30 @@ export CLOUDSTACK_SECRET_KEY="<secret>"
 
 ## Run bash script to setup VPC or NON-VPC examples
 ```shell
-$ ./enable_non_vpc_example.sh
+./enable_non_vpc_example.sh
 ```
 or
 ```shell
-$ ./enable_vpc_example.sh
+./enable_vpc_example.sh
 ```
 ## Update the keypair setting in variables/ace.tfvars
 ```hcl
  keypair              = "<keypair name here>" # Key pair created in UI. Provide name here.
 ```
 
+## Update Compute Offering/Zone in variables/ace.tfvars according to your region/zone
+* Intel-Local-US-West (zone0,zone1)
+* EPYC-Linstor-US-West (zone0)
+* Intel-linstor-US-Central (zone2)
+```hcl
+  availability_zone = "zone0"
+  ...
+  ...
+  service_offering = "Intel-Local-US-West"
+```
+
 ```shell
-$ tofu init
+tofu init
 ```
 ```
 Initializing the backend...
@@ -58,11 +69,11 @@ commands will detect it and remind you to do so if necessary.
 
 ## Run the Tofu Plan
 ```shell
-$ tofu plan -out example-tfplan -var-file variables/ace.tfvars
+tofu plan -out example-tfplan -var-file variables/ace.tfvars
 ```
 ## Apply the Tofu Plan
 ```shell
-$ tofu apply example-tfplan
+tofu apply example-tfplan
 ```
 ## Connect to VM you deployed
 
@@ -77,7 +88,7 @@ pub_ip = "X.X.X.X"
 Then you can ssh using the vm with the following format:
 
 ```shell
-$ ssh -p 222X cloud@X.X.X.X
+ssh -p 222X cloud@X.X.X.X
 ```
 The port number `222X` the `X` is the index number of the server created.
 
@@ -87,6 +98,6 @@ _***In the `VPC` example the port forwarding is only setup on `web_net_1` instan
 
 ## Clean up
 ```shell
-$ tofu plan --destroy -out example-tfplan -var-file variables/ace.tfvars
-$ tofu apply example-tfplan
+tofu plan --destroy -out example-tfplan -var-file variables/ace.tfvars
+tofu apply example-tfplan
 ```
